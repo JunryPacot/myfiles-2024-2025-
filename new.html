@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCIS Students Catalog</title>
+</head>
+<body>
+    <!-- Circular Text with Centered Image -->
+    <div style="text-align: center; margin-top: 50px;">
+        <svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer Circle -->
+            <circle cx="150" cy="150" r="140" fill="orange" stroke="black" stroke-width="5"></circle>
+
+            <!-- Text Path for Upper Text -->
+            <defs>
+                <path id="text-path-upper" d="M 150,150 m -120,0 a 120,120 0 1,1 240,0 a 120,120 0 1,1 -240,0"></path>
+            </defs>
+            <text fill="black" font-size="16" font-weight="bold">
+                <textPath href="#text-path-upper" startOffset="50%" text-anchor="middle">
+                    CCIS STUDENTS CATALOG
+                </textPath>
+            </text>
+
+            <!-- Center Image -->
+            <circle cx="150" cy="150" r="70" fill="white" stroke="black" stroke-width="2"></circle>
+            <image href="catalog-image.jpg" x="115" y="115" width="70" height="70" clip-path="circle(35px at 150px 150px)"></image>
+
+            <!-- Text Path for Lower Text -->
+            <defs>
+                <path id="text-path-lower" d="M 150,150 m -120,0 a 120,120 0 1,0 240,0 a 120,120 0 1,0 -240,0"></path>
+            </defs>
+            <text fill="black" font-size="16" font-weight="bold">
+                <textPath href="#text-path-lower" startOffset="50%" text-anchor="middle">
+                    WELCOME TO THE CATALOG
+                </textPath>
+            </text>
+        </svg>
+    </div>
+
+    <!-- Student List -->
+    <h1 style="text-align: center; margin-top: 20px;">Student List</h1>
+    <table border="3" bordercolor="blue" cellspacing="3" cellpadding="10" align="center">
+        <tr bgcolor="#f2f2f2">
+            <th>Student ID</th>
+            <th>Profile Photo</th>
+            <th>Student Name</th>
+            <th>Description</th>
+            <th>Birthday</th>
+        </tr>
+        <tr bgcolor="#e6f7ff">
+            <td>M-006988</td>
+            <td>
+                <a href="Junry.html">
+                    <img src="junry.jpeg" alt="Profile Photo" width="100" height="100" style="border-radius: 50%;">
+                </a>
+            </td>
+            <td>I am Junry</td>
+            <td>Junior Web Developer</td>
+            <td>October 04, 2006</td>
+        </tr>
+        <tr bgcolor="#f2e6ff">
+            <td>M-006825</td>
+            <td>
+                <a href="mico-details.html">
+                    <img src="Mico.jpg" alt="Profile Photo" width="100" height="100" style="border-radius: 50%;">
+                </a>
+            </td>
+            <td>Mico Quimson</td>
+            <td>Programmer</td>
+            <td>July 25, 2006</td>
+        </tr>
+    </table>
+</body>
+</html>

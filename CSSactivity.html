@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="external.css">
+</head>
+<style>
+   .header {
+    background-color: red;
+}
+#exam {
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+font-size: 40px;
+font-style: italic;
+}
+#exam:active {
+    background-color: red;
+    font-size: 35px;
+}
+.div {
+    margin: 20px;
+    border: 10px solid red;
+    padding: 40px;
+    height: 100px;
+    width: 100px;
+    background-color: aquamarine;
+    text-align: center;
+    font-size: 23px;
+}
+ .h1 {
+    text-align: center;
+    color: blue;
+ }
+ .h2 {
+    text-align: center;
+ }
+ #special {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+ }
+ .highlight {
+    text-align: center;
+    background-color: yellow;
+ }
+ input {
+    padding: 8px;
+    border: 2px solid black;
+    width: 800px;
+    text-align: center;
+ }
+ .input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ .box1 {
+    border: 1px solid black;
+    margin-left: 20px;
+    padding: 60px;
+    width: 250px;
+    height: 60px;
+    background-color: red;
+ }
+ .box2 {
+   width: 300px;
+   height: 150px;
+   border: 2px solid #333;
+   background-color: aqua;
+   padding: 10px;
+   color: white;
+   font-size: 20px;
+   position: relative;
+   margin-top: 1rem;
+ }
+ .box2 .b2 {
+   position: absolute;
+   top: 0; 
+   left: 0; 
+   margin: 0;
+   margin-left: 70px; 
+   font-weight: bold;
+ }
+ .box3 {
+    border: 1px solid black;
+    padding: 60px;
+    width: 250px;
+    height: 60px;
+    background-color: green;
+    margin-top: 1rem;
+    border-radius: 10px;
+    text-align: center;
+ }
+</style>
+<body>
+    <h1 class="header">junrys website</h1>
+    <h1 id="exam">selector</h1>
+    <div class="div">Welcome</div>
+    <br><br>
+    <h1 class="h1">Basic CSS Selectors</h1>
+    <h2 class="h2">Examples of Different Selectors</h2>
+    <p id="special">This an Using ID Selector</p>
+    <p class="highlight">This an Using an class selector</p>
+    <div class="input">
+        <input type="text" placeholder="Attribute Selector example">
+    </div>
+    <br><br>
+
+    <h1>Basic CSS Properties</h1>
+
+    <div class="box1">
+        <p>Box with Margin, padding, and border</p>
+    </div>
+
+    <div class="box2">
+         <p class="b2">Box with box styling</p>
+    </div>
+ 
+    <div class="box3">
+         <p>Box with border radius</p>
+    </div>
+</body>
+</html>

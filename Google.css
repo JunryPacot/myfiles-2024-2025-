@@ -1,0 +1,39 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f9f9f9;
+  font-family: 'Arial', sans-serif;
+}
+
+.google-logo {
+  display: flex;
+  font-size: 80px;
+  font-weight: bold;
+}
+
+.g {
+  color: #4285F4;
+}
+
+.o1 {
+  color: #EA4335;
+}
+
+.o2 {
+  color: #FBBC05;
+}
+
+.g-l {
+  color: #4285F4;
+}
+
+.l {
+  color: #34A853;
+}
+
+.e {
+  color: #EA4335;
+}

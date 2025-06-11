@@ -1,0 +1,630 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="A heartfelt, beautifully designed proposal page crafted to ask a very special question.">
+  <title>Will You Be My Girlfriend? | A Special Proposal</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset and base styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(to bottom, #fff5f7, #ffe4e6);
+      color: #1f2937;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+      overscroll-behavior: none;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+    }
+    /* Main container */
+    .main {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    /* Background styles */
+    .background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(244, 63, 94, 0.2), rgba(159, 18, 57, 0.5));
+      mix-blend-mode: multiply;
+      z-index: 10;
+    }
+    .dark-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 10;
+    }
+    .background video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .background-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      display: none;
+    }
+    /* Floating hearts */
+    .floating-hearts {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .heart {
+      position: absolute;
+      color: #fecdd3;
+      opacity: 0.7;
+    }
+    /* Content container */
+    .content {
+      position: relative;
+      z-index: 20;
+      max-width: 48rem;
+      margin: 0 auto;
+      text-align: center;
+    }
+    /* Proposal content */
+    .proposal {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    .heart-icon {
+      width: 6rem;
+      height: 6rem;
+      margin: 0 auto 2rem;
+      color: #f43f5e;
+      animation: pulse 2s infinite;
+    }
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    .description {
+      font-size: 1.25rem;
+      color: #4b5563;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+      max-width: 36rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* Button container using flex for proper arrangement */
+    .button-container {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+      position: relative;
+      height: auto;
+    }
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      outline: none;
+      font-family: 'Montserrat', sans-serif;
+      padding: 0.75rem 1.5rem;
+    }
+    .btn:active {
+      transform: scale(0.95);
+    }
+    .btn-yes {
+      background-color: #f43f5e;
+      color: white;
+      box-shadow: 0 10px 15px -3px rgba(244, 63, 94, 0.3);
+    }
+    .btn-yes:hover {
+      background-color: #e11d48;
+    }
+    /* Initially, the no button is arranged in line */
+    .btn-no {
+      background-color: #f3f4f6;
+      color: #1f2937;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s;
+    }
+    .btn-no:hover {
+      background-color: #e5e7eb;
+    }
+    .hint {
+      margin-top: 2rem;
+      color: #e11d48;
+      animation: bounce 1s infinite alternate;
+      font-size: 1.125rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    }
+    /* Response content */
+    .response {
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      transform: scale(0.8);
+      animation: fadeInScale 0.5s forwards;
+    }
+    .response-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #f43f5e;
+    }
+    .response-description {
+      font-size: 1.25rem;
+      color: #4b5563;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .response-highlight {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #f43f5e;
+    }
+    .response-heart {
+      width: 8rem;
+      height: 8rem;
+      margin: 2rem auto;
+      color: #f43f5e;
+      fill: #f43f5e;
+    }
+    /* Footer */
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 1rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.9);
+      z-index: 20;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    /* Confetti canvas */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      pointer-events: none;
+    }
+    /* Message button */
+    .message-btn {
+      background-color: #0084ff;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      box-shadow: 0 10px 15px -3px rgba(0, 132, 255, 0.3);
+      transition: all 0.2s;
+    }
+    .message-btn:hover {
+      background-color: #0070d8;
+      transform: translateY(-2px);
+    }
+    .message-btn:active {
+      transform: translateY(0);
+    }
+    /* Animations */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInScale {
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .title { font-size: 2rem; }
+      .description { font-size: 1rem; }
+      .heart-icon { width: 5rem; height: 5rem; }
+      .response-title { font-size: 2rem; }
+      .response-description { font-size: 1rem; }
+      .response-highlight { font-size: 1.25rem; }
+      .response-heart { width: 6rem; height: 6rem; }
+      .background video { display: none; }
+      .background-image { display: block; }
+      .proposal, .response { padding: 1.5rem; }
+      .button-container { flex-direction: column; }
+    }
+    /* Icon styles */
+    .icon {
+      display: inline-block;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .icon-heart { fill: currentColor; }
+    .icon-messenger { fill: currentColor; }
+  </style>
+</head>
+<body>
+  <main class="main">
+    <!-- Background -->
+    <div class="background">
+      <div class="overlay"></div>
+      <div class="dark-overlay"></div>
+      <video autoplay muted loop playsinline>
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-pink-and-white-flowers-in-bloom-5180-large.mp4" type="video/mp4">
+      </video>
+      <div class="background-image" style="background-image: url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');"></div>
+    </div>
+    <!-- Floating hearts -->
+    <div class="floating-hearts" id="floating-hearts"></div>
+    <!-- Main content -->
+    <div class="content" id="content">
+      <!-- Content will be dynamically inserted here -->
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Made with ❤️ just for you | <span id="current-year"></span></p>
+    </footer>
+  </main>
+  <!-- Confetti canvas -->
+  <canvas id="confetti-canvas" style="display: none;"></canvas>
+  <script>
+    // Global proposal state and variables
+    let proposalState = "pending";
+    let noCount = 0;
+    let confettiActive = false;
+    // DOM Elements
+    const content = document.getElementById('content');
+    const floatingHeartsContainer = document.getElementById('floating-hearts');
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const currentYearSpan = document.getElementById('current-year');
+    // Set current year
+    currentYearSpan.textContent = new Date().getFullYear();
+    // Check if device is mobile
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    // Initialize the page
+    function init() {
+      createFloatingHearts();
+      renderContent();
+      setupBackgroundMusic();
+    }
+    // Setup background music from local file "bulong.mp3"
+    function setupBackgroundMusic() {
+      const audio = new Audio('bulong.mp3');
+      audio.volume = 0.4;
+      audio.loop = true;
+      document.addEventListener('click', function playMusic() {
+        audio.play().catch(e => console.log("Audio play prevented:", e));
+        document.removeEventListener('click', playMusic);
+      }, { once: true });
+    }
+    // Create floating hearts
+    function createFloatingHearts() {
+      const count = isMobile ? 8 : 15;
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = `
+          <svg class="icon icon-heart" width="${Math.random() * 30 + 15}" height="${Math.random() * 30 + 15}" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        `;
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.top = `${Math.random() * 100}%`;
+        heart.style.opacity = `${Math.random() * 0.7 + 0.3}`;
+        heart.style.animation = `float ${Math.random() * 10 + 10}s ease-in-out infinite alternate`;
+        heart.style.animationDelay = `${Math.random() * 5}s`;
+        floatingHeartsContainer.appendChild(heart);
+      }
+    }
+    // Render content based on proposalState
+    function renderContent() {
+      content.innerHTML = '';
+      if (proposalState === "pending") {
+        renderProposal();
+      } else if (proposalState === "yes") {
+        renderYesResponse();
+        if (!confettiActive) {
+          startConfetti();
+          confettiActive = true;
+        }
+      } else if (proposalState === "no") {
+        renderNoResponse();
+      }
+    }
+    // Render proposal content
+    function renderProposal() {
+      const proposal = document.createElement('div');
+      proposal.className = 'proposal';
+      proposal.innerHTML = `
+        <svg class="heart-icon icon icon-heart" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+        <h1 class="title">Will You Be My Girlfriend?</h1>
+        <p class="description">
+          Every moment with you feels like a dream I never want to wake up from.
+          <br class="hidden-mobile">
+          You've brought so much joy and meaning into my life.
+        </p>
+        <div class="button-container">
+          <button id="yes-button" class="btn btn-yes" aria-label="Yes, I will be your girlfriend">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            Yes
+          </button>
+          <button id="no-button" class="btn btn-no" aria-label="No, I cannot">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            No
+          </button>
+        </div>
+        <p id="hint" class="hint" style="opacity: ${noCount > 3 ? 1 : 0};">
+          The "No" button seems to be running away... 😉
+        </p>
+      `;
+      content.appendChild(proposal);
+      document.getElementById('yes-button').addEventListener('click', handleYesClick);
+      const noButton = document.getElementById('no-button');
+      // On hover or touch, change the layout to absolute positioning so the button can run
+      if (isMobile) {
+        noButton.addEventListener('touchstart', handleNoTouch);
+      } else {
+        noButton.addEventListener('mouseenter', handleNoHover);
+      }
+      noButton.addEventListener('click', handleNoClick);
+    }
+    // Render yes response
+    function renderYesResponse() {
+      const resp = document.createElement('div');
+      resp.className = 'response';
+      resp.innerHTML = `
+        <h2 class="response-title">She said YES! 💖</h2>
+        <p class="response-description">
+          Thank you for making me the happiest person alive! This is the beginning of our beautiful journey together.
+          <br><br>
+          <span class="response-highlight">
+            I promise to cherish every moment with you.
+          </span>
+        </p>
+        <div>
+          <svg class="response-heart icon icon-heart" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </div>
+        <a href="https://m.me/junry.pacot.2024?ref=I%20said%20YES%20to%20your%20proposal!" class="message-btn" target="_blank">
+          <svg class="icon icon-messenger" width="24" height="24" viewBox="0 0 28 28" fill="currentColor">
+            <path d="M14,2C7.373,2,2,6.896,2,12.981c0,3.212,1.438,6.106,3.75,8.035v4.034l3.427-1.893c1.487,0.525,3.095,0.815,4.823,0.815c6.627,0,12-4.896,12-10.981S20.627,2,14,2z M15.201,16.916l-2.566-2.731l-5.005,2.731l5.505-5.845l2.627,2.731l4.945-2.731L15.201,16.916z"></path>
+          </svg>
+          Message Me on Facebook
+        </a>
+      `;
+      content.appendChild(resp);
+      const heart = resp.querySelector('.response-heart');
+      animateHeart(heart);
+      // Open Messenger after a short delay
+      setTimeout(() => {
+        window.open('https://m.me/junry.pacot.2024?ref=I%20said%20YES%20to%20your%20proposal!', '_blank');
+      }, 3000);
+    }
+    // Render no response
+    function renderNoResponse() {
+      const resp = document.createElement('div');
+      resp.className = 'response';
+      resp.innerHTML = `
+        <h2 class="response-title" style="color: #4b5563;">I understand</h2>
+        <p class="response-description">
+          Thank you for your honesty. I value our connection and respect your decision.
+          <br><br>
+          Our journey together has still been meaningful to me.
+        </p>
+        <button id="try-again" class="btn" style="background-color: #6b7280; color: white;">
+          Try Again
+        </button>
+      `;
+      content.appendChild(resp);
+      document.getElementById('try-again').addEventListener('click', () => {
+        proposalState = "pending";
+        renderContent();
+      });
+    }
+    // Button event handlers
+    function handleYesClick() {
+      proposalState = "yes";
+      renderContent();
+    }
+    function handleNoHover() {
+      // Change button to absolute positioning when first hovered
+      const noButton = document.getElementById('no-button');
+      noButton.style.position = "absolute";
+      moveNoButton();
+    }
+    function handleNoTouch(e) {
+      const noButton = document.getElementById('no-button');
+      noButton.style.position = "absolute";
+      moveNoButton();
+      e.preventDefault();
+      return false;
+    }
+    function handleNoClick() {
+      proposalState = "no";
+      renderContent();
+    }
+    // Move the no button randomly and update sizes
+    function moveNoButton() {
+      noCount++;
+      const noButton = document.getElementById('no-button');
+      const topPos = Math.floor(Math.random() * 70);
+      const leftPos = Math.floor(Math.random() * 70);
+      noButton.style.top = `${topPos}%`;
+      noButton.style.left = `${leftPos}%`;
+      // Optionally adjust font sizes based on count
+      noButton.style.fontSize = `${Math.max(16 - noCount, 8)}px`;
+      const yesButton = document.getElementById('yes-button');
+      if (yesButton) {
+        yesButton.style.fontSize = `${16 + noCount}px`;
+      }
+      const hint = document.getElementById('hint');
+      if (hint && noCount > 3) {
+        hint.style.opacity = '1';
+      }
+    }
+    // Animate heart in the yes response
+    function animateHeart(heart) {
+      let scale = 1;
+      let rotation = 0;
+      let direction = 1;
+      function animate() {
+        scale += 0.01 * direction;
+        rotation += direction;
+        if (scale >= 1.2) direction = -1;
+        if (scale <= 0.9) direction = 1;
+        heart.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+    // Confetti functions
+    function startConfetti() {
+      confettiCanvas.style.display = 'block';
+      const ctx = confettiCanvas.getContext('2d');
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+      const particles = [];
+      const particleCount = isMobile ? 100 : 200;
+      const gravity = 0.3;
+      const colors = ['#f43f5e', '#fb7185', '#fda4af', '#fecdd3', '#fee2e2', '#fcd34d', '#fbbf24', '#ec4899', '#be185d'];
+      const shapes = ['circle', 'heart'];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * confettiCanvas.width,
+          y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+          radius: Math.random() * 4 + 2,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          shape: shapes[Math.floor(Math.random() * shapes.length)],
+          velocity: { x: Math.random() * 6 - 3, y: Math.random() * 2 + 2 },
+          rotation: Math.random() * 360,
+          rotationSpeed: Math.random() * 2 - 1
+        });
+      }
+      function animate() {
+        if (!confettiActive) return;
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          ctx.save();
+          ctx.beginPath();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation * Math.PI / 180);
+          if (p.shape === 'circle') {
+            ctx.arc(0, 0, p.radius, 0, Math.PI * 2);
+          } else if (p.shape === 'heart') {
+            const size = p.radius * 2;
+            ctx.moveTo(0, 0);
+            ctx.bezierCurveTo(size/2, -size/2, size, 0, 0, size);
+            ctx.bezierCurveTo(-size, 0, -size/2, -size/2, 0, 0);
+          }
+          ctx.fillStyle = p.color;
+          ctx.fill();
+          ctx.restore();
+          p.x += p.velocity.x;
+          p.y += p.velocity.y;
+          p.velocity.y += gravity;
+          p.rotation += p.rotationSpeed;
+          if (p.y > confettiCanvas.height) {
+            particles[i] = {
+              x: Math.random() * confettiCanvas.width,
+              y: -10,
+              radius: p.radius,
+              color: p.color,
+              shape: p.shape,
+              velocity: { x: Math.random() * 6 - 3, y: Math.random() * 2 + 2 },
+              rotation: Math.random() * 360,
+              rotationSpeed: Math.random() * 2 - 1
+            };
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+      setTimeout(() => {
+        const newCount = isMobile ? 50 : 100;
+        particles.splice(0, particles.length - newCount);
+      }, 3000);
+    }
+    window.addEventListener('resize', () => {
+      if (confettiCanvas) {
+        confettiCanvas.width = window.innerWidth;
+        confettiCanvas.height = window.innerHeight;
+      }
+    });
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
